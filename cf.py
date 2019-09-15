@@ -12,7 +12,7 @@ username = input('Enter your Codeforces username: ')
 submission_list_url = 'https://codeforces.com/submissions/{}/contest/'.format(username)
 
 contest_url = contest_url + username
-print(contest_url)
+# print(contest_url)
 
 page = requests.get(contest_url)
 soup = BeautifulSoup(page.text, 'html.parser')
@@ -24,6 +24,7 @@ c_table = contests.find('tbody')
 lst = contests.findAll('tr')
 total_contests = len(lst) - 1
 
+print("{} has participated in {} contests".format(username,total_contests))
 t = int(input('How many recent contests do you want to parse ?\nEnter : ')) + 1
 
 get_soln_url = "https://codeforces.com/contest/{}/submission/{}"
@@ -35,6 +36,15 @@ def make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name, 
     ext = ""
     if 'C++' in sub_lang:
         ext = ".cpp"
+    elif 'Py' in sub_lang:
+        ext = ".py"
+    elif "Java" in sub_lang:
+        ext = ".java"
+    elif "Kotlin" in sub_lang:
+        ext - ".kt"
+    elif "PHP" in sub_lang:
+        ext = ".php"
+    
     sub_name = sub_name + ext
     file_name = os.path.join(folder_name,sub_name)
     print(file_name)
@@ -43,10 +53,6 @@ def make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name, 
     header = "\n\n\n" + contest_id + " " + sub_name + " " + sub_lang + " " + sub_status + "\n\n\n"
     file1.write( header + get_soln)
     file1.close()
-
-
-
-    
 
 
 def get_soln_text(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name):
@@ -109,12 +115,15 @@ for i in range(t):
     new_lst = new_contests.findAll('tr')
     total_subs = len(new_lst) - 1
     # print("\n\n\n\n\n")
-
+    cname = cname + "[User: {}]".format(username)
     folder_name = os.path.join(parent_path,cname)
     os.chdir(parent_path)
 
     if os.path.exists(folder_name) == False:
         os.mkdir(folder_name)
+    else:
+        print("Pass !!! Already exits !!!")
+        continue
 
     for i in range(len(new_lst)):
         if i == 0:continue
