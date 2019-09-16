@@ -9,6 +9,7 @@ import shutil
 import time
 
 parent_path = os.getcwd()
+illegal = ["<", ">", "[", "]",  "?", ":", "*" , "|"]
 
 contest_url = 'http://codeforces.com/contests/with/'
 username = input('Enter your Codeforces username: ')
@@ -52,7 +53,7 @@ def getExt(sub_lang):
     return ext
 
 #function to create misc info file in contest folder    
-def createInfoFile(folder_name,username):
+def createInfoFile(folder_name,username, info_arr):
     info_file =os.path.join(folder_name,"contest-info-on-{}.txt".format(username))
     fname = open(info_file, "a")
     txt_to_write = ""
@@ -93,8 +94,8 @@ def info_arr_extraction(row_data):
     return info_arr
 
 #function to create a directory tree with folder + files
-def make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name, get_soln):
-    folder_name = os.path.join(parent_path , contest_name)
+def make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name, get_soln,folder_name):
+    # folder_name = os.path.join(parent_path , contest_name)
 
     #func 
     ext = getExt(sub_lang)
@@ -108,7 +109,7 @@ def make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name, 
     file1.close()
 
 #function to extract the submitted code
-def get_soln_text(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name):
+def get_soln_text(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name,folder_name):
     url_soln = get_soln_url.format(contest_id,sub_id)
     print(url_soln)
 
@@ -116,10 +117,10 @@ def get_soln_text(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name
     soup_cpp = BeautifulSoup(cpp.text,'html.parser')
     
     get_soln = soup_cpp.findAll('div',attrs={"class" : "roundbox"})[1].find('pre').text
-    make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name,get_soln)
+    make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name,get_soln,folder_name)
 
 #driver function to call the get_soln_text function
-def extract_solution(row_data, c_id, contest_name):
+def extract_solution(row_data, c_id, contest_name,folder_name):
     # print(row_data)
     sub_cell = row_data[-3].find('span')
     sub_id = sub_cell['submissionid']
@@ -133,7 +134,7 @@ def extract_solution(row_data, c_id, contest_name):
     print(sub_name)
     print(sub_lang)
 
-    get_soln_text(sub_id,c_id,sub_status,sub_name,sub_lang, contest_name)
+    get_soln_text(sub_id,c_id,sub_status,sub_name,sub_lang, contest_name,folder_name)
 
     print("\n")
 
@@ -172,9 +173,12 @@ for i in range(t):
     total_subs = len(new_lst) - 1
 
     #Maketh the parent folder
-    cname = cname + "[User: {}]".format(username)
+    cname = cname + " by User: {}".format(username)
     folder_name = os.path.join(parent_path,cname)
     os.chdir(parent_path)
+
+    for str_char in illegal:
+        folder_name = folder_name[:10] + folder_name[10:].replace(str_char, " ")
 
     if createFolder(folder_name) == 0:
         continue
@@ -184,12 +188,12 @@ for i in range(t):
     time.sleep(5)
     # time to roll    
     
-    createInfoFile(folder_name,username)   
+    createInfoFile(folder_name,username,info_arr)   
 
     for i in range(len(new_lst)):
         if i == 0:continue
         new_row = new_lst[i]
         new_row_data = new_row.findAll('td')
-        extract_solution(new_row_data, val, cname)
+        extract_solution(new_row_data, val, cname,folder_name)
 
     #Wish you high rating on the next contest!!!!
