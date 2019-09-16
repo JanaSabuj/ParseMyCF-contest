@@ -17,6 +17,9 @@ contest_url = contest_url + username
 
 #visit the list of past contests page
 page = requests.get(contest_url)
+if (page.status_code != 200):
+    print("Failed to retrieve the URL: {}".format(contest_url))
+    exit(1)
 soup = BeautifulSoup(page.text, 'html.parser')
 
 #extract the datatable 
@@ -126,7 +129,7 @@ def extract_solution(row_data, c_id, contest_name):
 
     get_soln_text(sub_id,c_id,sub_status,sub_name,sub_lang, contest_name)
 
-    print("\n\n\n")
+    print("\n\n")
 
 #MAIN
 #Ask how many recent contests to parse?? 
@@ -136,7 +139,7 @@ get_soln_url = "https://codeforces.com/contest/{}/submission/{}"
 
 # loop through each of the contests 
 for i in range(t):
-    if i==0: continue #This is the row header row
+    if i==0: continue #This is the row header row - ignore
     row = lst[i]
     row_data = row.findAll('td')
 
@@ -152,6 +155,9 @@ for i in range(t):
 
     #New submission page visited
     new_page = requests.get(sub_lst_url)
+    if new_page.status_code !=200:
+        print("This {} cannot be parsed !! ".format(cname))
+        continue
     new_soup = BeautifulSoup(new_page.text,'html.parser')
 
     new_contests = new_soup.find('div', attrs={"class":"datatable"})
@@ -168,6 +174,7 @@ for i in range(t):
         continue
 
     # take some rest my script
+    print("\n\nTime to rest for 5 secs !!!\n\n")
     time.sleep(5)
     # time to roll    
     
