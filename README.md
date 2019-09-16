@@ -19,8 +19,9 @@ A personal submission parser for CF, parsed by individual contests.
 # What to do
 * Download only the **cf.py** file 
 * Install latest version of python (add to PATH) if not already installed
-* Pip install all the below mentioned modules and dependencies
+* **Pip install** all the **below mentioned modules** and dependencies
 * Place the script in a folder where you want all the different folders of contest
+* Run **python3 cf.py** or **python cf.py** as suitable
 * **Bonus** - If you place it in a **git initialised repository**, after the script finishes, you can simply commit all the changes and all your contest-codes will be pushed to github
 * An active internet connection while the script parses
 
