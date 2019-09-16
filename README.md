@@ -2,7 +2,7 @@
 A personal submission parser for CF, parsed by individual contests.
 
 > **Inspiration**
-> Why work hard when python is your pet ? 
+> Why work hard when Python is your pet ? 
 
 # What it does
 * You are prompted the username
