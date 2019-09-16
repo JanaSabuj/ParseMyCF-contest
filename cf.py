@@ -10,9 +10,9 @@ import time
 
 parent_path = os.getcwd()
 
-contest_url = 'https://codeforces.com/contests/with/'
+contest_url = 'http://codeforces.com/contests/with/'
 username = input('Enter your Codeforces username: ')
-submission_list_url = 'https://codeforces.com/submissions/{}/contest/'.format(username)
+submission_list_url = 'http://codeforces.com/submissions/{}/contest/'.format(username)
 contest_url = contest_url + username
 
 #visit the list of past contests page
@@ -141,7 +141,7 @@ def extract_solution(row_data, c_id, contest_name):
 #Ask how many recent contests to parse?? 
 #If folder already parsed before, it'll be skipped!
 t = int(input('How many recent contests do you want to parse ?\nEnter : ')) + 1
-get_soln_url = "https://codeforces.com/contest/{}/submission/{}"
+get_soln_url = "http://codeforces.com/contest/{}/submission/{}"
 
 # loop through each of the contests 
 for i in range(t):
