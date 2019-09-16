@@ -29,6 +29,29 @@ lst = contests.findAll('tr')
 total_contests = len(lst) - 1
 print("{} has participated in {} contests".format(username,total_contests))
 
+# function to get the code extension 
+def getExt(sub_lang):
+    ext = ""
+    if 'C++' in sub_lang:
+        ext = ".cpp"
+    elif 'C' in sub_lang:
+        ext = ".c"
+    elif 'Py' in sub_lang:
+        ext = ".py"
+    elif "JavaScript" in sub_lang:
+        ext = ".js"
+    elif "Java" in sub_lang:
+        ext = ".java"
+    elif "Kotlin" in sub_lang:
+        ext = ".kt"
+    elif "PHP" in sub_lang:
+        ext = ".php"
+    elif "Rub" in sub_lang:
+        ext = ".rb"
+    
+    return ext
+
+#function to create misc info file in contest folder    
 def createInfoFile(folder_name,username):
     info_file =os.path.join(folder_name,"contest-info-on-{}.txt".format(username))
     fname = open(info_file, "a")
@@ -72,29 +95,16 @@ def info_arr_extraction(row_data):
 #function to create a directory tree with folder + files
 def make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name, get_soln):
     folder_name = os.path.join(parent_path , contest_name)
-    # print(folder_name)
 
-    ext = ""
-    if 'C++' in sub_lang:
-        ext = ".cpp"
-    elif 'C' in sub_lang:
-        ext = ".c"
-    elif 'Py' in sub_lang:
-        ext = ".py"
-    elif "Java" in sub_lang:
-        ext = ".java"
-    elif "Kotlin" in sub_lang:
-        ext - ".kt"
-    elif "PHP" in sub_lang:
-        ext = ".php"
-    
+    #func 
+    ext = getExt(sub_lang)
+
     sub_name = sub_name + ext
     file_name = os.path.join(folder_name,sub_name)
-    # print(file_name)
     
     file1 = open(file_name,'a')
-    header = "\n\n\n" + contest_id + " " + sub_name + " " + sub_lang + " " + sub_status + "\n\n\n"
-    file1.write( header + get_soln)
+    header = "\n" + contest_id + " " + sub_name + " " + sub_lang + " " + sub_status + "\n"
+    file1.write(header + get_soln)
     file1.close()
 
 #function to extract the submitted code
@@ -104,14 +114,9 @@ def get_soln_text(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name
 
     cpp = requests.get(url_soln)
     soup_cpp = BeautifulSoup(cpp.text,'html.parser')
-    # print(soup_cpp.prettify())
+    
     get_soln = soup_cpp.findAll('div',attrs={"class" : "roundbox"})[1].find('pre').text
-    # print(get_soln)
-
     make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name,get_soln)
-
-    # print("\n\n\n-------\n\n\n")
-
 
 #driver function to call the get_soln_text function
 def extract_solution(row_data, c_id, contest_name):
@@ -121,7 +126,8 @@ def extract_solution(row_data, c_id, contest_name):
     sub_status = sub_cell.text
     sub_name = row_data[-5].find('a').text.strip()
     sub_lang =  row_data[-4].text.strip()
-    # print(sub_name)
+    
+    #log
     print(sub_id)
     print(sub_status)
     print(sub_name)
@@ -129,7 +135,7 @@ def extract_solution(row_data, c_id, contest_name):
 
     get_soln_text(sub_id,c_id,sub_status,sub_name,sub_lang, contest_name)
 
-    print("\n\n")
+    print("\n")
 
 #MAIN
 #Ask how many recent contests to parse?? 
@@ -174,7 +180,7 @@ for i in range(t):
         continue
 
     # take some rest my script
-    print("\n\nTime to rest for 5 secs !!!\n\n")
+    print("\nTime to rest for 5 secs !!!\n")
     time.sleep(5)
     # time to roll    
     
@@ -186,19 +192,4 @@ for i in range(t):
         new_row_data = new_row.findAll('td')
         extract_solution(new_row_data, val, cname)
 
-
-
-
-
-
-
-
-    
-
-    
-    
-    
-    
-    
-    
- 
+    #Wish you high rating on the next contest!!!!
