@@ -4,6 +4,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 import shutil
+import time
 
 parent_path = os.getcwd()
 
@@ -31,11 +32,13 @@ get_soln_url = "https://codeforces.com/contest/{}/submission/{}"
 
 def make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name, get_soln):
     folder_name = os.path.join(parent_path , contest_name)
-    print(folder_name)
+    # print(folder_name)
 
     ext = ""
     if 'C++' in sub_lang:
         ext = ".cpp"
+    elif 'C' in sub_lang:
+        ext = ".c"
     elif 'Py' in sub_lang:
         ext = ".py"
     elif "Java" in sub_lang:
@@ -47,7 +50,7 @@ def make_dir_os(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name, 
     
     sub_name = sub_name + ext
     file_name = os.path.join(folder_name,sub_name)
-    print(file_name)
+    # print(file_name)
     
     file1 = open(file_name,'a')
     header = "\n\n\n" + contest_id + " " + sub_name + " " + sub_lang + " " + sub_status + "\n\n\n"
@@ -93,8 +96,28 @@ def extract_solution(row_data, c_id, contest_name):
 for i in range(t):
     if i==0: continue
     row = lst[i]
+
     row_data = row.findAll('td')
     # print(row_data)
+    info_arr = []
+    m_0 = "Contest no: " + row_data[0].text.strip()
+    m_1 = "Contest name: " + row_data[1].find('a')['title'].strip()
+    m_2 = "Rank: " + row_data[2].find('a').text.strip()
+    m_3 = "Solved: " + row_data[3].find('a').text.strip()
+    m_4 = "Rating Change: " + row_data[4].find('span').text.strip()
+    m_5 = "New Rating: " + row_data[5].text.strip()
+    m_user = "Username: " + username
+
+    info_arr.append(m_user)
+    info_arr.append(m_0)
+    info_arr.append(m_1)
+    info_arr.append(m_2)
+    info_arr.append(m_3)
+    info_arr.append(m_4)
+    info_arr.append(m_5)
+    
+    print(info_arr)
+
     link = row_data[1]
     cname = link.find('a')['title']
     # print(cname)
@@ -119,11 +142,24 @@ for i in range(t):
     folder_name = os.path.join(parent_path,cname)
     os.chdir(parent_path)
 
+    # take some rest my script
+    time.sleep(5)
+    # time to roll
+
     if os.path.exists(folder_name) == False:
         os.mkdir(folder_name)
+        print("Folder created for contest {}".format(i))
     else:
         print("Pass !!! Already exits !!!")
         continue
+
+    info_file =os.path.join(folder_name,"contest-info-on-{}.txt".format(username))
+    fname = open(info_file, "a")
+    txt_to_write = ""
+    for txt in info_arr:
+        txt_to_write = txt_to_write + txt + "\n"
+    fname.write(txt_to_write)
+    fname.close()
 
     for i in range(len(new_lst)):
         if i == 0:continue
