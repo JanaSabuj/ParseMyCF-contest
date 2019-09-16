@@ -1,6 +1,9 @@
 # codeforces-parser-by-sabuj-jana
 A personal submission parser for CF, parsed by individual contests.
 
+> **Inspiration**
+> Why work hard when python is your pet ? 
+
 # What it does
 * You are prompted the username
     * You are shown the no of contests the user has participated
@@ -12,6 +15,14 @@ A personal submission parser for CF, parsed by individual contests.
     * A contest-info .txt file is also created having all the miscellaneous information about the
       user's performance like - Rating Change, New rating, Rank, Problems successfully solved etc.
 * If a folder was previously present i.e a contest was previously parsed by this scraper, it'll ignore    the contest and move one to the next unfinished contest
+
+# What to do
+* Download the cf.py file 
+* Install latest version of python (add to PATH) if not already installed
+* Pip install all the below mentioned modules and dependencies
+* Place the script in a folder where you want all the different folders of contest
+* **Bonus** - If you place it in a **git initialised repository**, after the script finishes, you can simply commit all the changes and all your contest-codes will be pushed to github
+* An active internet connection while the script parses
 
 ## Requirements
 * Modules
