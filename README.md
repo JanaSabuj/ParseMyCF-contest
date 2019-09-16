@@ -1,4 +1,4 @@
-# codeforces-parser-by-sabuj-jana
+# ParseMyCf-contest
 A personal submission parser for CF, parsed by individual contests.
 
 > **Inspiration** 
