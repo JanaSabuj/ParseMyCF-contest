@@ -17,7 +17,7 @@ A personal submission parser for CF, parsed by individual contests.
 * If a folder was previously present i.e a contest was previously parsed by this scraper, it'll ignore    the contest and move one to the next unfinished contest
 
 # What to do
-* Download the cf.py file 
+* Download only the **cf.py** file 
 * Install latest version of python (add to PATH) if not already installed
 * Pip install all the below mentioned modules and dependencies
 * Place the script in a folder where you want all the different folders of contest
