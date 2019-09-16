@@ -1,7 +1,7 @@
 # codeforces-parser-by-sabuj-jana
 A personal submission parser for CF, parsed by individual contests.
 
-> **Inspiration**
+> **Inspiration** 
 > Why work hard when Python is your pet ? 
 
 # What it does
