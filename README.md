@@ -16,6 +16,9 @@ A personal submission parser for CF, parsed by individual contests.
       user's performance like - Rating Change, New rating, Rank, Problems successfully solved etc.
 * If a folder was previously present i.e a contest was previously parsed by this scraper, it'll ignore    the contest and move one to the next unfinished contest
 
+# Youtube demo
+[Here](https://youtu.be/bci2ogajpFI)
+
 # Script prompting the username
 ![1](https://user-images.githubusercontent.com/39147514/65044905-7219a980-d97b-11e9-9256-21bc4c4d1d58.png)
 
