@@ -11,13 +11,13 @@ import time
 parent_path = os.getcwd()
 illegal = ["<", ">", "[", "]",  "?", ":", "*" , "|"]
 
-contest_url = 'http://codeforces.com/contests/with/'
+contest_url = 'https://codeforces.com/contests/with/'
 username = input('Enter your Codeforces username: ')
-submission_list_url = 'http://codeforces.com/submissions/{}/contest/'.format(username)
+submission_list_url = 'https://codeforces.com/submissions/{}/contest/'.format(username)
 contest_url = contest_url + username
 
 #visit the list of past contests page
-page = requests.get(contest_url)
+page = requests.get(contest_url, verify = True)
 if (page.status_code != 200):
     print("Failed to retrieve the URL: {}".format(contest_url))
     exit(1)
@@ -113,7 +113,7 @@ def get_soln_text(sub_id, contest_id, sub_status,sub_name,sub_lang, contest_name
     url_soln = get_soln_url.format(contest_id,sub_id)
     print(url_soln)
 
-    cpp = requests.get(url_soln)
+    cpp = requests.get(url_soln, verify = True)
     soup_cpp = BeautifulSoup(cpp.text,'html.parser')
     
     get_soln = soup_cpp.findAll('div',attrs={"class" : "roundbox"})[1].find('pre').text
@@ -161,7 +161,7 @@ for i in range(t):
     sub_lst_url = submission_list_url + val
 
     #New submission page visited
-    new_page = requests.get(sub_lst_url)
+    new_page = requests.get(sub_lst_url, verify = True)
     if new_page.status_code !=200:
         print("This {} cannot be parsed !! ".format(cname))
         continue
