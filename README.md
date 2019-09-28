@@ -47,6 +47,12 @@ A personal submission parser for CF, parsed by individual contests.
 ![101](https://user-images.githubusercontent.com/39147514/65045540-9c1f9b80-d97c-11e9-9fdd-854269d1dc50.png)
 ![456456](https://user-images.githubusercontent.com/39147514/65045565-a9d52100-d97c-11e9-83e5-94b7453f3c1c.png)
 
+### Some users may encounter a https error. Here's the walkthrough.
+You need to change all the **https** to **http** and delete the argument **verify = True** from every get request.
+![verify-true-git](https://user-images.githubusercontent.com/39147514/65818085-cc442580-e22b-11e9-8e05-bd04eadb6965.png)
+
+The highlighted parts show the https and verify=True clauses. They need to be dealt with as described above the pic.
+
 ## Requirements
 * Modules
     * os
