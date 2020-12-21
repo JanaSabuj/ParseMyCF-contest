@@ -77,10 +77,10 @@ def info_arr_extraction(row_data):
     info_arr = []
     m_0 = "Contest no: " + row_data[0].text.strip()
     m_1 = "Contest name: " + row_data[1].find('a')['title'].strip()
-    m_2 = "Rank: " + row_data[2].find('a').text.strip()
-    m_3 = "Solved: " + row_data[3].find('a').text.strip()
-    m_4 = "Rating Change: " + row_data[4].find('span').text.strip()
-    m_5 = "New Rating: " + row_data[5].text.strip()
+    m_2 = "Rank: " + row_data[3].find('a').text.strip()
+    m_3 = "Solved: " + row_data[4].find('a').text.strip()
+    m_4 = "Rating Change: " + row_data[5].find('span').text.strip()
+    m_5 = "New Rating: " + row_data[6].text.strip()
     m_user = "Username: " + username
 
     info_arr.append(m_user)
